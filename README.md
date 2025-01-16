@@ -70,7 +70,7 @@ dotnet test
 
 # Ejemplos de peticiones API.
 
-### Obtener un producto por ID
+### Obtener pruductos
 **Endpoint:** `GET /api/productos`  
 **Descripción:** Obtiene los detalles de los registros de productos.
 
