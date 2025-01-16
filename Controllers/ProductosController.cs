@@ -1,5 +1,6 @@
 ﻿using Examen.Model.DTO;
 using Examen.Model.DTO.Validations;
+using Examen.Model.Entities;
 using Examen.Model.IDAO.IServices;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -19,7 +20,11 @@ namespace Examen.Controllers
             _service = service ?? throw new ArgumentNullException(nameof(service));
             _requestCreateValidator = requestCreateValidator ?? throw new ArgumentNullException(nameof(requestCreateValidator));
         }
-        [HttpGet("Productos")]
+
+        [ProducesResponseType(
+            typeof(Productos), 200)]
+        [ProducesResponseType(typeof(BadRequest), 400)]
+        [HttpGet()]
         public async Task<IActionResult> Productos()
         {
             try
@@ -39,10 +44,14 @@ namespace Examen.Controllers
             catch (Exception _e)
             {
                 return BadRequest(
-                    
+                    "Ha ocurrido un error"
                 );
             }
         }
+
+        [ProducesResponseType(
+            typeof(Productos), 200)]
+        [ProducesResponseType(typeof(BadRequest), 400)]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProductoById([FromRoute] int id)
         {
@@ -62,7 +71,9 @@ namespace Examen.Controllers
                 return BadRequest();
             }
         }
-
+        [ProducesResponseType(
+            typeof(IActionResult), 200)]
+        [ProducesResponseType(typeof(BadRequest), 400)]
         [HttpPost()]
         public async Task<IActionResult> Post(
             RequestProducto request
